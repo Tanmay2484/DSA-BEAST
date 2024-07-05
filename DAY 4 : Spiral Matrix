@@ -1,0 +1,68 @@
+link: https://leetcode.com/problems/spiral-matrix/description/
+54. Spiral Matrix
+Solved
+Medium
+Topics
+Companies
+Hint
+Given an m x n matrix, return all elements of the matrix in spiral order.
+
+ 
+
+Example 1:
+
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,3,6,9,8,7,4,5]
+Example 2:
+
+
+Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+ 
+
+Constraints:
+
+m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 10
+-100 <= matrix[i][j] <= 100
+//c++
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    int left = 0, top = 0;
+    int buttom = matrix.size() - 1;
+    int right = matrix[0].size() - 1;
+    vector<int> ans;
+
+    while (top <= buttom && left <= right) {
+        for (int i = left; i <= right; i++) {
+            ans.push_back(matrix[top][i]);
+        }
+        top++;
+
+        for (int i = top; i <= buttom; i++) {
+            ans.push_back(matrix[i][right]);
+        }
+        right--;
+
+        if (top <= buttom) {  // Check if there are remaining rows
+            for (int i = right; i >= left; i--) {
+                ans.push_back(matrix[buttom][i]);
+            }
+            buttom--;
+        }
+
+        if (left <= right) {  // Check if there are remaining columns
+            for (int i = buttom; i >= top; i--) {
+                ans.push_back(matrix[i][left]);
+            }
+            left++;
+        }
+    }
+
+    return ans;
+}
+
+};
